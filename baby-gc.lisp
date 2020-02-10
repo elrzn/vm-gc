@@ -12,19 +12,19 @@
 (defclass/std vm-object-pair (vm-object)
   ((head tail)))
 
-(defclass/std vm! ()
+(defclass/std vm ()
   ((stack-size :type integer :std 0)
    (stack :type '(simple-vector +stack-max+)
           :std (make-array +stack-max+))))
 
-(defmethod push! ((vm vm!) value)
+(defmethod push! ((vm vm) value)
   "Pushes a value onto the VM stack."
   (assert (< (stack-size vm) +stack-max+)
       (value)
     "Stack overflow!")
   (setf (aref (stack vm) (stack-size vm)) value))
 
-(defmethod pop! ((vm vm!))
+(defmethod pop! ((vm vm))
   "Removes a value from the VM stack."
   (assert (> (stack-size vm) 0)
       ()
