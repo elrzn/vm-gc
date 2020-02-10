@@ -15,7 +15,8 @@
 (defclass/std vm ()
   ((stack-size :type integer :std 0)
    (stack :type '(simple-vector +stack-max+)
-          :std (make-array +stack-max+))))
+          :std (make-array +stack-max+
+                           :initial-element nil))))
 
 (defmethod push! ((vm vm) value)
   "Pushes a value onto the VM stack."
