@@ -71,3 +71,14 @@
     (mark (head object))
     (mark (tail object))
     (call-next-method)))
+
+(defmethod sweep ((vm vm))
+  (loop with object = (first-object vm)
+        while object
+        if (markedp object)
+        do (progn
+             (setf (markedp object) nil)
+             (setf object (next object)))
+        else do (let ((unreached object))
+                  (setf object (next unreached))
+                  (makunbound unreached))))
