@@ -28,5 +28,7 @@
       ()
     "Stack underflow!")
   (decf (stack-size vm))
-  (aref (stack vm) (1+ (stack-size vm))))
-
+  (let ((val (aref (stack vm) (stack-size vm))))
+    (setf (aref (stack vm) (stack-size vm))
+          nil)
+    val))
