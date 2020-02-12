@@ -14,7 +14,7 @@
           :std (make-array +stack-max+
                            :initial-element nil))))
 
-(defmethod push! ((vm vm) value)
+(defmethod push! ((vm vm) (value vm-object))
   "Pushes a value onto the VM stack."
   (assert (< (stack-size vm) +stack-max+)
       (value)
