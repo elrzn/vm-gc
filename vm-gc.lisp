@@ -55,12 +55,12 @@
           nil)
     val))
 
-(defmethod mark-all ((vm vm))
+(defmethod mark (object) nil)
+
+(defmethod mark ((vm vm))
   (loop for object
         across (stack vm)
         do (mark object)))
-
-(defmethod mark (object) nil)
 
 (defmethod mark ((object vm-object))
   (when (not (markedp object))
