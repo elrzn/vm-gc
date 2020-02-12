@@ -1,7 +1,7 @@
-;;;; baby-gc.asd
+;;;; vm-gc.asd
 
-(asdf:defsystem #:baby-gc
-  :description "Describe baby-gc here"
+(asdf:defsystem #:vm-gc
+  :description "Describe vm-gc here"
   :author "Eric Lorenzana"
   :license  "ISC"
   :version "0.0.1"
@@ -9,4 +9,4 @@
   :depends-on (#:cl-algebraic-data-type
                #:defclass-std)
   :components ((:file "package")
-               (:file "baby-gc")))
+               (:file "vm-gc")))

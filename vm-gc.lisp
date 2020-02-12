@@ -1,6 +1,6 @@
-;;;; baby-gc.lisp
+;;;; vm-gc.lisp
 
-(in-package #:baby-gc)
+(in-package #:vm-gc)
 
 (defconstant +stack-max+ 256)
 

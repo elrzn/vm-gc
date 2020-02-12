@@ -1,4 +1,4 @@
 ;;;; package.lisp
 
-(defpackage #:baby-gc
+(defpackage #:vm-gc
   (:use #:cl #:cl-algebraic-data-type #:defclass-std))
