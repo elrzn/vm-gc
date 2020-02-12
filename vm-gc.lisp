@@ -5,7 +5,8 @@
 (defconstant +stack-max+ 256)
 
 (defclass/std vm-object ()
-  ((markedp :type boolean :std nil)))
+  ((markedp :type boolean :std nil)
+   (next-object :type vm-object)))
 
 (defclass/std vm-object-integer (vm-object)
   ((value :type integer :std 0)))
@@ -17,13 +18,16 @@
 (defclass/std vm ()
   ((stack-size :type integer :std 0)
    (stack :type (vector vm-object +stack-max+)
-          :std (make-array +stack-max+ :initial-element nil))))
+          :std (make-array +stack-max+ :initial-element nil))
+   (first-object :type vm-object)))
 
 (defmethod push! ((vm vm) (value vm-object))
   "Pushes a value onto the VM stack."
   (assert (< (stack-size vm) +stack-max+)
       (value)
     "Stack overflow!")
+  (setf (next-object value) (first-object vm))
+  (setf (first-object vm) value)
   (setf (aref (stack vm) (stack-size vm)) value)
   (incf (stack-size vm))
   value)
