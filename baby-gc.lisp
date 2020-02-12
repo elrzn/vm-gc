@@ -32,3 +32,13 @@
     (setf (aref (stack vm) (stack-size vm))
           nil)
     val))
+
+(defun make-dummy-vm ()
+  (let ((vm (make-instance 'vm)))
+    (push! vm (vm-object-integer 1337))
+    (push! vm (vm-object-pair
+               (vm-object-integer 1)
+               (vm-object-pair
+                (vm-object-integer 2)
+                (vm-object-integer 3))))
+    vm))
