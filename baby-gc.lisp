@@ -18,7 +18,9 @@
   (assert (< (stack-size vm) +stack-max+)
       (value)
     "Stack overflow!")
-  (setf (aref (stack vm) (stack-size vm)) value))
+  (setf (aref (stack vm) (stack-size vm)) value)
+  (incf (stack-size vm))
+  value)
 
 (defmethod pop! ((vm vm))
   "Removes a value from the VM stack."
