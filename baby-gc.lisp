@@ -50,3 +50,18 @@
     (setf (aref (stack vm) (stack-size vm))
           nil)
     val))
+
+(defmethod mark-all ((vm vm))
+  (loop for object
+        across (stack vm)
+        do (mark object)))
+
+(defmethod mark (object) nil)
+
+(defmethod mark ((object vm-object))
+  (setf (markedp object) t))
+
+(defmethod mark ((object vm-object-pair))
+  (mark (head object))
+  (mark (tail object))
+  (call-next-method))
