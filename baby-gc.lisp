@@ -59,9 +59,11 @@
 (defmethod mark (object) nil)
 
 (defmethod mark ((object vm-object))
-  (setf (markedp object) t))
+  (when (not (markedp object))
+    (setf (markedp object) t)))
 
 (defmethod mark ((object vm-object-pair))
-  (mark (head object))
-  (mark (tail object))
-  (call-next-method))
+  (when (not (markedp object))
+    (mark (head object))
+    (mark (tail object))
+    (call-next-method)))
