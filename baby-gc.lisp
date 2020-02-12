@@ -4,13 +4,9 @@
 
 (defconstant +stack-max+ 256)
 
-(defclass/std vm-object () ())
-
-(defclass/std vm-object-int (vm-object)
-  ((value :type integer :std 0)))
-
-(defclass/std vm-object-pair (vm-object)
-  ((head tail)))
+(defdata vm-object
+  (vm-object-integer integer)
+  (vm-object-pair vm-object vm-object))
 
 (defclass/std vm ()
   ((stack-size :type integer :std 0)
