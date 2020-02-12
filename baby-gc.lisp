@@ -4,9 +4,15 @@
 
 (defconstant +stack-max+ 256)
 
-(defdata vm-object
-  (vm-object-integer integer)
-  (vm-object-pair vm-object vm-object))
+(defclass/std vm-object ()
+  ((markedp :type boolean :std nil)))
+
+(defclass/std vm-object-integer (vm-object)
+  ((value :type integer :std 0)))
+
+(defclass/std vm-object-pair (vm-object)
+  ((head :type vm-object)
+   (tail :type vm-object)))
 
 (defclass/std vm ()
   ((stack-size :type integer :std 0)
@@ -22,6 +28,18 @@
   (incf (stack-size vm))
   value)
 
+(defmethod push! ((vm vm) (value integer))
+  (push! vm (make-instance 'vm-object-integer :value value)))
+
+(defmethod push-integer! ((vm vm) (value integer))
+  (push! vm value))
+
+(defmethod push-pair! ((vm vm))
+  (let ((pair (make-instance 'vm-object-pair)))
+    (setf (tail pair) (pop! vm))
+    (setf (head pair) (pop! vm))
+    (push! vm pair)))
+
 (defmethod pop! ((vm vm))
   "Removes a value from the VM stack."
   (assert (> (stack-size vm) 0)
@@ -32,13 +50,3 @@
     (setf (aref (stack vm) (stack-size vm))
           nil)
     val))
-
-(defun make-dummy-vm ()
-  (let ((vm (make-instance 'vm)))
-    (push! vm (vm-object-integer 1337))
-    (push! vm (vm-object-pair
-               (vm-object-integer 1)
-               (vm-object-pair
-                (vm-object-integer 2)
-                (vm-object-integer 3))))
-    vm))
