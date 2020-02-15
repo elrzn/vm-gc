@@ -78,7 +78,7 @@
         if (markedp object)
         do (progn
              (setf (markedp object) nil)
-             (setf object (next object)))
+             (setf object (next-object object)))
         else do (let ((unreached object))
-                  (setf object (next unreached))
+                  (setf object (next-object unreached))
                   (makunbound unreached))))
