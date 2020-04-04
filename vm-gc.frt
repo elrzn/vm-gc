@@ -16,6 +16,6 @@ stack-new stack
 : stack@	stack 2@ ;
 : stack!	stack 2! ;
 : stack<	stack! stack#+ ;
-: stack>	stack@ stack#- ;
+: stack>	stack#- stack@ ;
 : stack<int	0 stack< ;
 : stack<pair	stack< ;
