@@ -7,15 +7,16 @@ variable stack# 0 stack# !
 : stack#+	['] 1+ (stack#!) ;
 : stack#-	['] 1- (stack#!) ;
 
-: stack-new	stack-max create cells allot does> stack#@ cells 2 * + ;
+: stack-new stack-max create cells allot
+            does> stack#@ cells 2 * + ;
 
 stack-new stack
 
 : stack-over?	stack#@ stack-max > ;
-: stack-under?	stack#@ 0 < ;
+: stack-under?	stack#@ 0 <= ;
 : stack@	stack 2@ ;
-: stack!	stack 2! ;
-: stack<	stack! stack#+ ;
-: stack>	stack#- stack@ ;
-: stack<int	0 stack< ;
+: stack!	swap stack 2! ;
+: stack<	stack-over?  if ." overflow"  else stack! stack#+ then ;
+: stack>	stack-under? if ." underflow" else stack#- stack@ then ;
+: stack<int	false stack< ;
 : stack<pair	stack< ;
