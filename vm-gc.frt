@@ -7,8 +7,9 @@ variable stack# 0 stack# !
 : stack#+	['] 1+ (stack#!) ;
 : stack#-	['] 1- (stack#!) ;
 
-: stack-new stack-max create cells allot
-            does> stack#@ cells 2 * + ;
+: stack-cells	cells 2 * ;
+: stack-new	stack-max create stack-cells allot
+		does> stack#@ cells 2 * + ;
 
 stack-new stack
 
