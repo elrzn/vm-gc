@@ -21,3 +21,7 @@ stack-new stack
 : stack>	stack-under? if ." underflow" else stack#- stack@ then ;
 : stack<int	false stack< ;
 : stack<pair	stack< ;
+
+: pair?		1+ @ false = not ;	\ :)
+: mark		recursive dup false swap c! dup pair? if 1+ 2@ mark mark else drop then ;
+: mark-all	stack#@ 0 do stack i cells + mark loop ;
